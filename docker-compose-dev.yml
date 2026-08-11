@@ -1,0 +1,40 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: dockerfile-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      # Live-reload support
+      - .:/app
+      # Isolate node_modules to prevent host/OS binary conflicts
+      - app-node-modules:/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=5173
+    networks:
+      - backend-net
+
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app # Live sync of your code
+      - app-vendor:/app/vendor # Persist dependencies so they aren't overwritten
+    working_dir: /app
+    command: symfony server:start --allow-all-ip --no-tls
+    tty: true
+    stdin_open: true
+    networks:
+      - backend-net
+
+volumes:
+  app-vendor:
+  app-node-modules:
+
+networks:
+  backend-net:

@@ -1,0 +1,47 @@
+FROM php:8.4-cli
+
+# 1. Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    libxml2-dev \
+    libonig-dev \
+    libcurl4-openssl-dev \
+    libbz2-dev \
+    libicu-dev \
+    default-mysql-client \
+    zip unzip curl git make gcc && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 2. Configure & install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install \
+    gd \
+    pdo \
+    pdo_mysql \
+    mbstring \
+    xml \
+    zip \
+    bcmath \
+    gmp \
+    intl \
+    curl \
+    opcache
+
+# 3. Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# 4. Setup app
+WORKDIR /app
+COPY . .
+RUN composer install --no-interaction --no-progress --optimize-autoloader
+
+# 5. Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash && \
+    mv /root/.symfony5/bin/symfony /usr/local/bin/symfony && \
+    rm -rf /root/.symfony5
+
+EXPOSE 8000
+CMD ["symfony", "server:start", "--allow-all-ip", "--no-tls"]

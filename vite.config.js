@@ -1,7 +1,7 @@
-import {fileURLToPath, URL} from 'node:url'
+import { fileURLToPath, URL } from 'node:url'
 
 import legacy from '@vitejs/plugin-legacy'
-import {defineConfig} from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
@@ -40,7 +40,15 @@ export default defineConfig({
   },
 
   server: {
+    host: '0.0.0.0',
     strictPort: true,
-    port: 5173
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://app:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api')
+      }
+    }
   }
 })
