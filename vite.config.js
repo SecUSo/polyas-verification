@@ -31,7 +31,7 @@ export default defineConfig({
 
   build: {
     // output dir for production build
-    outDir: '../public',
+    outDir: 'dist',
 
     // our entry
     rollupOptions: {

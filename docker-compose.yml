@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - "80:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    volumes: 
+      - persistant:/app/var/www/html/var/persistent
+    restart: unless-stopped
+
+volumes:
+  persistant:
