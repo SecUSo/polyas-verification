@@ -24,10 +24,10 @@ const { t } = useTranslator()
   <BallotsView class="mb-2" :choice="choice" />
 
   <template v-if="decision === undefined">
-    <button class="btn btn-success me-2" @click="verify(true)">
+    <button class="btn btn-success mb-2 w-100" @click="verify(true)">
       {{ t('shared.yes') }}
     </button>
-    <button class="btn btn-danger" @click="verify(false)">
+    <button class="btn btn-danger mb-2 w-100" @click="verify(false)">
       {{ t('shared.no') }}
     </button>
   </template>

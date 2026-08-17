@@ -27,25 +27,29 @@ const { t } = useTranslator()
 </script>
 
 <template>
-  <div>
-    <h4>
-      {{ ballot.title['default'] }}
-    </h4>
-    <p v-if="ballot.contentAbove?.value['default']">
-      <BallotContentView :content="ballot.contentAbove.value['default']" />
-    </p>
-    <div class="d-flex flex-column row-gap-3">
-      <ListView v-for="list in ballot.lists" :key="list.id" :list="list" :choice="choicePerList[list.id]!" />
-    </div>
-    <p v-if="ballot.contentBelow?.value['default']">
-      <BallotContentView :content="ballot.contentBelow.value['default']" />
-    </p>
+  <div class="mb-3">
+    <div class="card">
+      <div class="card-body">
 
-    <div class="form-check mb-0 mt-4">
-      <input class="form-check-input" type="checkbox" :checked="invalidChoice" :id="ballot.id" />
-      <label class="form-check-label" :for="ballot.id">
-        {{ t('view.ballot.ballot_view.invalid_choice') }}
-      </label>
+        <h4>
+          {{ ballot.title['default'] }}
+        </h4>
+        <p v-if="ballot.contentAbove?.value['default']">
+          <BallotContentView :content="ballot.contentAbove.value['default']" />
+        </p>
+        <div class="d-flex flex-column row-gap-3">
+          <ListView v-for="list in ballot.lists" :key="list.id" :list="list" :choice="choicePerList[list.id]!" />
+        </div>
+        <p v-if="ballot.contentBelow?.value['default']">
+          <BallotContentView :content="ballot.contentBelow.value['default']" />
+        </p>
+        <div class="form-check mb-0 mt-4">
+          <input class="form-check-input" type="checkbox" :checked="invalidChoice" :id="ballot.id" />
+          <label class="form-check-label" :for="ballot.id">
+            {{ t('view.ballot.ballot_view.invalid_choice') }}
+          </label>
+        </div>
+      </div>
     </div>
   </div>
 </template>

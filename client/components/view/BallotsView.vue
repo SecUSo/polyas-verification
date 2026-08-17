@@ -30,14 +30,11 @@ const { t } = useTranslator()
 </script>
 
 <template>
-  <div class="card">
-    <div class="card-body">
-      <div class="mb-5">
-        <InfoPopover :message="t('view.ballot.ballot_view.change_your_vote')" :popover="t('view.ballot.ballot_view.change_vote_for_screenshot')" />
-      </div>
-      <div class="d-flex row-gap-5 flex-column">
-        <BallotView v-for="ballot in ballots" :key="ballot.id" :ballot="ballot" :choice="choicePerBallot[ballot.id] ?? ''" />
-      </div>
-    </div>
+  <InfoPopover :message="t('view.ballot.ballot_view.change_your_vote')"
+    :popover="t('view.ballot.ballot_view.change_vote_for_screenshot')" />
+
+  <div class="mt-3 d-flex row-gap-3 flex-column">
+    <BallotView v-for="ballot in ballots" :key="ballot.id" :ballot="ballot"
+      :choice="choicePerBallot[ballot.id] ?? ''" />
   </div>
 </template>
