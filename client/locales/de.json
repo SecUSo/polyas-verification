@@ -56,7 +56,7 @@
   },
   "layout": {
     "header_jumbotron": {
-      "title": "Individuelle Verifizierung",
+      "title": "Webseite zur Stimmüberprüfung",
       "description": "Hat der Wahl-Server Ihren Stimmzettel richtig registriert?"
     },
     "receipt_explanation": {
