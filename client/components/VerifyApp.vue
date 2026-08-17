@@ -120,14 +120,11 @@ const { t } = useTranslator()
 
 <template>
   <div class="mb-4">
-    <h3 class="mb-2">{{ t('view.verify_app.title') }}</h3>
-    <p>{{ t('view.verify_app.description') }}</p>
+    <!--<h3 class="mb-2">{{ t('view.verify_app.title') }}</h3>
+    <p>{{ t('view.verify_app.description') }}</p>-->
   </div>
 
   <div class="row g-2">
-    <div class="p-0" v-if="canReset">
-      <ResetButton @reset="reset" />
-    </div>
 
     <div v-if="urlPayload && !verificationResult?.result">
       <Authenticate @entered="handleEntered" :expectedOwnerId="urlPayload.vid" :enteredOwnerId="ballotOwner" />
@@ -156,8 +153,7 @@ const { t } = useTranslator()
     :optional="true">
     <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" />
   </div>
-
-  <div class="my-5">
-    <VerificationExplanation :verification-failed="verificationFailed" />
+  <div class="p-0" v-if="canReset">
+    <ResetButton @reset="reset" />
   </div>
 </template>
