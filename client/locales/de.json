@@ -22,13 +22,15 @@
     },
     "set_password": {
       "set_password": "Einmalpasswort",
-      "one_time_password": "Das Einmalpasswort wird auf dem Wahlgerät angezeigt."
+      "one_time_password": "Das Einmalpasswort wird auf dem Wahlgerät angezeigt.",
+      "missing": "Bitte geben Sie das Einmalpasswort richtig ein."
     },
     "verify_ballot_owner": {
       "set_ballot_owner": "Stimmberechtigung",
       "ballot_owner_source": "Geben Sie Ihre persönliche ID für diese Wahl ein. Dies ist die GI-Mitgliedernummer, ohne Präfix oder führende Nullen.",
       "successful": "Sie überprüfen den Stimmzettel, der Ihnen zugeordnet ist.",
-      "failed": "Der Stimmzettel ist nicht Ihnen zugeordnet. Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf."
+      "failed": "Der Stimmzettel ist nicht Ihnen zugeordnet. Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
+      "missing": "Geben Sie Ihre GI-Mitgliedernummer ein."
     },
     "check_receipt": {
       "info": "Wie speichern nun Ihre Wahlquittung, und speisen diese in die universellen Verifikation ein.",

@@ -3,7 +3,6 @@ import { computed, ref, watch } from 'vue'
 import type { Status } from '@/components/domain/Status'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '@/services/api'
-import SetPassword from '@/components/action/SetPassword.vue'
 import { VerificationErrors } from '@/components/domain/VerificationErrors'
 import VerificationExplanation from '@/components/layout/VerificationExplanation.vue'
 import ResetButton from '@/components/shared/ResetButton.vue'
@@ -11,8 +10,8 @@ import { VerificationSteps } from '@/components/domain/VerificationSteps'
 import VerifyBallotContent from '@/components/action/VerifyBallotContent.vue'
 import CheckReceipt from '@/components/action/CheckReceipt.vue'
 import { useTranslator } from '@/locales/translator'
-import VerifyBallotOwner from '@/components/action/VerifyBallotOwner.vue'
 import DownloadReceipt from '@/components/action/DownloadReceipt.vue'
+import Authenticate from './action/Authenticate.vue'
 
 const route = useRoute()
 const decodeUrlBase64 = (value: string) => {
@@ -110,6 +109,12 @@ const verificationFailed = computed(() => {
   return false
 })
 
+const handleEntered = ({ id, otp }: { id: string; otp: string }) => {
+  ballotOwner.value = id
+  if (urlPayload.value!.vid === id)
+    password.value = otp
+}
+
 const { t } = useTranslator()
 </script>
 
@@ -124,16 +129,14 @@ const { t } = useTranslator()
       <ResetButton @reset="reset" />
     </div>
 
-    <div v-if="urlPayload">
-      <VerifyBallotOwner @entered="ballotOwner = $event" :expectedOwnerId="urlPayload.vid"
-        :enteredOwnerId="ballotOwner" />
+    <div v-if="urlPayload && !verificationResult?.result">
+      <Authenticate @entered="handleEntered" :expectedOwnerId="urlPayload.vid" :enteredOwnerId="ballotOwner" />
     </div>
 
-    <div v-if="urlPayload && ballotOwner === urlPayload.vid">
-      <SetPassword @changed="password = $event" />
+    <div v-if="verificationFailed" class="alert alert-danger mb-3">
+      {{ t('layout.verification_explanation.verification_fails.try_again_or_complain') }}
     </div>
-
-    <div v-if="!!verificationResult?.result">
+    <div v-if="!!verificationResult?.result && !ballotContentVerifiedResult">
       <VerifyBallotContent :choice="verificationResult.result" @verified="ballotContentVerifiedResult = $event"
         :decision="ballotContentVerifiedResult" />
     </div>
