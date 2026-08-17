@@ -20,7 +20,9 @@ use Famoser\PolyasVerification\Workflow\DownloadReceipt;
 use Famoser\PolyasVerification\Workflow\ElectionDetails;
 use Famoser\PolyasVerification\Workflow\ExportReceipts;
 use Famoser\PolyasVerification\Workflow\Mock\DownloadReceiptMock;
+use Famoser\PolyasVerification\Workflow\Mock\StoreReceiptMock;
 use Famoser\PolyasVerification\Workflow\Mock\VerificationMock;
+use Famoser\PolyasVerification\Workflow\StoreReceipt;
 use Famoser\PolyasVerification\Workflow\Verification;
 use Famoser\PolyasVerification\Workflow\VerifyReceipt;
 use Psr\Container\ContainerInterface;
@@ -75,7 +77,7 @@ class RouteFactory
             return SlimExtensions::createZipFileResponse($request, $response, $pdfs, $filename);
         });
 
-        $route->post('/receipt', function (Request $request, Response $response) {
+        $route->post('/receipt/file/verify', function (Request $request, Response $response) {
             /** @var UploadedFile|false $file */
             $file = current($request->getUploadedFiles());
             if (!$file) {
@@ -115,6 +117,28 @@ class RouteFactory
             return SlimExtensions::createPdfFileResponse($response, $result, 'receipt.pdf', $pdf);
         });
 
+        $route->post('/receipt', function (Request $request, Response $response) {
+            $payload = SlimExtensions::parseJsonRequestBody($request);
+            RequestValidatorExtensions::checkReceipt($request, $payload);
+            /** @var array{
+             *     'fingerprint': string,
+             *     'signature': string,
+             *     'ballotVoterId': string,
+             * } $payload
+             */
+            if (StoreReceiptMock::isMockPayload($payload)) {
+                $result = StoreReceiptMock::performMockStoreReceipt($payload, $failedCheck);
+            } else {
+                $deviceParameters = self::getDeviceParameters();
+                $election = self::getElection();
+
+                $storeReceipt = new StoreReceipt($deviceParameters->getVerificationKey(), $election['polyasElection']);
+                $result = $storeReceipt->store($payload, $failedCheck);
+            }
+
+            return SlimExtensions::createStatusJsonResponse($request, $response, $result, $failedCheck);
+        });
+
         $route->post('/verification', function (Request $request, Response $response) {
             $payload = SlimExtensions::parseJsonRequestBody($request);
             RequestValidatorExtensions::checkVerification($request, $payload);
@@ -130,10 +154,9 @@ class RouteFactory
                 $status = VerificationMock::performMockVerification($payload, $payload['password'], $failedCheck, $validReceipt, $hexBallot);
             } else {
                 $deviceParameters = self::getDeviceParameters();
-                $election = self::getElection();
 
                 $apiClient = self::createPOLYASApiClient();
-                $verification = new Verification($deviceParameters, $apiClient, $election['polyasElection']);
+                $verification = new Verification($deviceParameters, $apiClient);
                 $challengeCommit = ChallengeCommit::createWithRandom();
                 $status = $verification->verify($payload, $payload['password'], $challengeCommit, $validReceipt, $hexBallot, $failedCheck);
             }
