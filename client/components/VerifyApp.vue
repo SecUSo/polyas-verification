@@ -2,15 +2,12 @@
 import { computed, ref, watch } from 'vue'
 import type { Status } from '@/components/domain/Status'
 import { useRoute, useRouter } from 'vue-router'
-import SetLink from '@/components/action/SetLink.vue'
 import { api } from '@/services/api'
 import SetPassword from '@/components/action/SetPassword.vue'
 import { VerificationErrors } from '@/components/domain/VerificationErrors'
-import ChecksView from '@/components/view/library/ChecksView.vue'
 import VerificationExplanation from '@/components/layout/VerificationExplanation.vue'
 import ResetButton from '@/components/shared/ResetButton.vue'
 import { VerificationSteps } from '@/components/domain/VerificationSteps'
-import StepView from '@/components/view/library/StepView.vue'
 import VerifyBallotContent from '@/components/action/VerifyBallotContent.vue'
 import CheckReceipt from '@/components/action/CheckReceipt.vue'
 import { useTranslator } from '@/locales/translator'
@@ -127,66 +124,35 @@ const { t } = useTranslator()
       <ResetButton @reset="reset" />
     </div>
 
-    <StepView prefix="domain.verification_step" :entry="VerificationSteps.INITIALIZE" :done="!!urlPayload" :success="true" :force-closed-when-done="true">
-      <SetLink />
-    </StepView>
+    <div v-if="urlPayload">
+      <VerifyBallotOwner @entered="ballotOwner = $event" :expectedOwnerId="urlPayload.vid"
+        :enteredOwnerId="ballotOwner" />
+    </div>
 
-    <StepView v-if="urlPayload" prefix="domain.verification_step" :entry="VerificationSteps.VERIFY_BALLOT_OWNER" :done="!!ballotOwner" :success="ballotOwner === urlPayload.vid">
-      <VerifyBallotOwner @entered="ballotOwner = $event" :expectedOwnerId="urlPayload.vid" :enteredOwnerId="ballotOwner" />
-    </StepView>
-
-    <StepView
-      v-if="urlPayload && ballotOwner === urlPayload.vid"
-      prefix="domain.verification_step"
-      :entry="VerificationSteps.ENTER_PASSWORD"
-      :done="!!password"
-      :success="true"
-      :force-closed-when-done="true"
-    >
+    <div v-if="urlPayload && ballotOwner === urlPayload.vid">
       <SetPassword @changed="password = $event" />
-    </StepView>
+    </div>
 
-    <StepView v-if="urlPayload && password" prefix="domain.verification_step" :entry="VerificationSteps.RECOVER_BALLOT" :done="!!verificationResult" :success="!!verificationResult?.status">
-      <div class="row g-2">
-        <ChecksView prefix="domain.verification_status" :result="verificationResult" :error-order="errorOrder" :fallback-error="VerificationErrors.UNKNOWN" />
-      </div>
-    </StepView>
+    <div v-if="!!verificationResult?.result">
+      <VerifyBallotContent :choice="verificationResult.result" @verified="ballotContentVerifiedResult = $event"
+        :decision="ballotContentVerifiedResult" />
+    </div>
 
-    <StepView
-      v-if="!!verificationResult?.result"
-      prefix="domain.verification_step"
-      :entry="VerificationSteps.VERIFY_BALLOT_CONTENT"
-      :done="ballotContentVerifiedResult !== undefined"
-      :success="!!ballotContentVerifiedResult"
-    >
-      <VerifyBallotContent :choice="verificationResult.result" @verified="ballotContentVerifiedResult = $event" :decision="ballotContentVerifiedResult" />
-    </StepView>
-
-    <StepView
-      v-if="!!(ballotContentVerifiedResult && verificationResult?.receipt)"
-      prefix="domain.verification_step"
-      :entry="VerificationSteps.STORE_RECEIPT"
-      :done="receiptChecked !== undefined"
-      :success="true"
-    >
+    <div v-if="!!(ballotContentVerifiedResult && verificationResult?.receipt)" prefix="domain.verification_step"
+      :entry="VerificationSteps.STORE_RECEIPT" :done="receiptChecked !== undefined" :success="true">
       <CheckReceipt :receipt="verificationResult.receipt" @checked="receiptChecked = $event" />
-    </StepView>
+    </div>
   </div>
 
   <p class="alert alert-success mt-2 mb-5" v-if="receiptChecked !== undefined">
     {{ t('view.verify_app.verification_finished') }}
   </p>
 
-  <StepView
-    v-if="receiptChecked !== undefined && verificationResult?.receipt"
-    prefix="domain.verification_step"
-    :entry="VerificationSteps.DOWNLOAD_RECEIPT"
-    :done="receiptDownloaded !== undefined"
-    :success="receiptDownloaded"
-    :optional="true"
-  >
+  <div v-if="receiptChecked !== undefined && verificationResult?.receipt" prefix="domain.verification_step"
+    :entry="VerificationSteps.DOWNLOAD_RECEIPT" :done="receiptDownloaded !== undefined" :success="receiptDownloaded"
+    :optional="true">
     <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" />
-  </StepView>
+  </div>
 
   <div class="my-5">
     <VerificationExplanation :verification-failed="verificationFailed" />
