@@ -16,6 +16,7 @@ const votesPerCandidate = computed(() => {
 
   return lookup
 })
+defineEmits(['selected'])
 </script>
 
 <template>
@@ -26,7 +27,7 @@ const votesPerCandidate = computed(() => {
       </h5>
 
       <CandidateView v-for="candidate in list.candidates" :key="candidate.id" :candidate="candidate"
-        :votes="votesPerCandidate[candidate.id]!" />
+        :votes="votesPerCandidate[candidate.id]!" @selected="$emit('selected', $event)" />
     </div>
   </div>
 </template>

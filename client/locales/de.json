@@ -84,6 +84,10 @@
         "question": "Was tun, wenn die Verifizierung hier fehlschlägt?",
         "try_again_or_complain": "Stellen Sie sicher, dass Sie die oben eingeblendete Wahl korrekt ist, und versuchen Sie es noch einmal. Wenn der Fehler dauerhaft besteht, wenden Sie sich bitte an die Wahlorganisatoren."
       }
+    },
+    "checkbox_modal": {
+      "text": "Sie können Ihre abgegebene Stimme nicht mehr ändern. Ihnen wird lediglich ein Bild Ihrer Stimme, so wie sie in der digitalen Wahlurne vorliegt angezeigt. Die Möglichkeit dieses Bild abzuändern wurde implementiert, um einen Nachweis über eine abgegebene Stimme gegenüber dritten Parteien zu verhindern. Wäre dieses Bild nicht veränderbar, könnte bspw. ein Screenshot dieser Seite dazu genutzt werden, um zu beweisen, wie man gewählt hat.",
+      "button": "Verstanden"
     }
   },
   "shared": {
