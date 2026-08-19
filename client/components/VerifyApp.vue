@@ -5,6 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { api } from '@/services/api'
 import { VerificationErrors } from '@/components/domain/VerificationErrors'
 import VerificationExplanation from '@/components/layout/VerificationExplanation.vue'
+import BallotsView from './view/BallotsView.vue'
 import ResetButton from '@/components/shared/ResetButton.vue'
 import { VerificationSteps } from '@/components/domain/VerificationSteps'
 import VerifyBallotContent from '@/components/action/VerifyBallotContent.vue'
@@ -109,6 +110,8 @@ const verificationFailed = computed(() => {
   return false
 })
 
+const collectReceipt = ref<boolean>(true)
+
 const handleEntered = ({ id, otp }: { id: string; otp: string }) => {
   ballotOwner.value = id
   if (urlPayload.value!.vid === id)
@@ -134,26 +137,25 @@ const { t } = useTranslator()
       {{ t('layout.verification_explanation.verification_fails.try_again_or_complain') }}
     </div>
     <div v-if="!!verificationResult?.result && !ballotContentVerifiedResult">
-      <VerifyBallotContent :choice="verificationResult.result" @verified="ballotContentVerifiedResult = $event"
-        :decision="ballotContentVerifiedResult" />
-    </div>
+      <p class="text-body-emphasis mb-2">{{ t('action.verify_ballot_content.question') }}</p>
+      <BallotsView :choice="verificationResult.result" />
+      <div class="mb-2">
+        <input class="form-check-input" type="checkbox" v-model="collectReceipt" /> {{
+          t('view.verify_app.collect_receipt') }}
+      </div>
 
-    <div v-if="!!(ballotContentVerifiedResult && verificationResult?.receipt)" prefix="domain.verification_step"
-      :entry="VerificationSteps.STORE_RECEIPT" :done="receiptChecked !== undefined" :success="true">
-      <CheckReceipt :receipt="verificationResult.receipt" @checked="receiptChecked = $event" />
+      <VerifyBallotContent @verified="ballotContentVerifiedResult = $event" @checked="receiptChecked = $event"
+        :decision="ballotContentVerifiedResult" :receipt="verificationResult.receipt"
+        :collectReceipt="collectReceipt" />
     </div>
   </div>
-
-  <p class="alert alert-success mt-2 mb-5" v-if="receiptChecked !== undefined">
+  <p v-if="ballotContentVerifiedResult" class="alert alert-success mt-2 mb-5">
     {{ t('view.verify_app.verification_finished') }}
   </p>
-
-  <div v-if="receiptChecked !== undefined && verificationResult?.receipt" prefix="domain.verification_step"
-    :entry="VerificationSteps.DOWNLOAD_RECEIPT" :done="receiptDownloaded !== undefined" :success="receiptDownloaded"
-    :optional="true">
+  <div v-if="ballotContentVerifiedResult && verificationResult?.receipt">
     <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" />
   </div>
-  <div class="p-0" v-if="canReset">
+  <div class="p-0 mt-3" v-if="canReset">
     <ResetButton @reset="reset" />
   </div>
 </template>

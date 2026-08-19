@@ -99,7 +99,8 @@
     "verify_app": {
       "title": "Stimmabgabe überprüfen",
       "description": "Mit dem QR Code, der nach der Wahl angezeigt wird, können Sie den Inhalt Ihres Stimmzettels überprüfen.",
-      "verification_finished": "Stimmabgabe erfolgreich verifiziert. Sie können dieses Fenster nun schliessen."
+      "verification_finished": "Stimmabgabe erfolgreich verifiziert. Sie können dieses Fenster nun schliessen.",
+      "collect_receipt": "Hiermit stimme ich zu, dass meine Quittung von dem Verifier gespeichert wird, damit diese später an die GI für die universelle Verifikation der Wahl gesendet wird."
     },
     "receipt_app": {
       "title": "Wahlquittung überprüfen",
