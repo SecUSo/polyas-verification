@@ -149,7 +149,7 @@ const { t } = useTranslator()
         :collectReceipt="collectReceipt" />
     </div>
   </div>
-  <p v-if="ballotContentVerifiedResult" class="alert alert-success mt-2 mb-5">
+  <p v-if="ballotContentVerifiedResult" class="fw-bold">
     {{ t('view.verify_app.verification_finished') }}
   </p>
   <div v-if="ballotContentVerifiedResult && verificationResult?.receipt">
