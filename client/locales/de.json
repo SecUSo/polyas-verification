@@ -55,6 +55,10 @@
       "failed": "Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
       "finalize": "Verifikation abschließen",
       "report": "Problem melden"
+    },
+    "take_survey": {
+      "explanation": "Wenn Sie zur Verbesserung von Verifikationstools beitragen möchten, können Sie an einer kurzen Umfrage teilnehmen:",
+      "to_survey": "Zur Umfrage"
     }
   },
   "layout": {

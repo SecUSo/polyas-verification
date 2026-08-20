@@ -10,6 +10,7 @@ import VerifyBallotContent from '@/components/action/VerifyBallotContent.vue'
 import { useTranslator } from '@/locales/translator'
 import DownloadReceipt from '@/components/action/DownloadReceipt.vue'
 import Authenticate from './action/Authenticate.vue'
+import TakeSurvey from './action/TakeSurvey.vue'
 
 const route = useRoute()
 const decodeUrlBase64 = (value: string) => {
@@ -153,7 +154,8 @@ const { t } = useTranslator()
     {{ t('view.verify_app.verification_finished') }}
   </p>
   <div v-if="ballotContentVerifiedResult && verificationResult?.receipt">
-    <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" />
+    <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" class="mb-3" />
+    <TakeSurvey class="mb-5" />
   </div>
   <div class="p-0 mt-3" v-if="canReset">
     <ResetButton @reset="reset" />
