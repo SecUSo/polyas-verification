@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { api } from '@/services/api'
 import type { Ballot } from '@/components/domain/POLYAS'
-import InfoPopover from '@/components/shared/InfoPopover.vue'
 import BallotView from '@/components/view/Ballot/BallotView.vue'
 import { useTranslator } from '@/locales/translator'
 
@@ -30,9 +29,9 @@ const { t } = useTranslator()
 </script>
 
 <template>
-  <InfoPopover :message="t('view.ballot.ballot_view.change_your_vote')"
-    :popover="t('view.ballot.ballot_view.change_vote_for_screenshot')" />
-
+  <div class="form-text position-relative">
+    {{ t('view.ballot.ballot_view.change_your_vote') }}
+  </div>
   <div class="mt-3 d-flex row-gap-3 flex-column">
     <BallotView v-for="ballot in ballots" :key="ballot.id" :ballot="ballot"
       :choice="choicePerBallot[ballot.id] ?? ''" />
