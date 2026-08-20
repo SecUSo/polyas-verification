@@ -21,16 +21,17 @@
       "reset": "zurücksetzen"
     },
     "set_password": {
-      "set_password": "Einmalpasswort",
-      "one_time_password": "Das Einmalpasswort wird auf dem Wahlgerät angezeigt.",
-      "missing": "Bitte geben Sie das Einmalpasswort richtig ein."
+      "set_password": "Einmal-PIN",
+      "one_time_password": "Bitte geben Sie die zeitbasierte Einmal-PIN ein, welche Ihnen aktuell auf der letzten Seite des Online-Wahlsystems angezeigt wird.",
+      "missing": "Bitte geben Sie das Einmalpasswort richtig ein.",
+      "verify": "Einmal-PIN überprüfen"
     },
     "verify_ballot_owner": {
-      "set_ballot_owner": "Stimmberechtigung",
-      "ballot_owner_source": "Geben Sie Ihre persönliche ID für diese Wahl ein. Dies ist die GI-Mitgliedernummer, ohne Präfix oder führende Nullen.",
+      "set_ballot_owner": "Wahl-ID",
+      "ballot_owner_source": "Geben Sie Ihre persönliche Wahl-ID für diese Wahl ein. Dies ist die GI-Mitgliedernummer, ohne Präfix oder führende Nullen.",
       "successful": "Sie überprüfen den Stimmzettel, der Ihnen zugeordnet ist.",
       "failed": "Der Stimmzettel ist nicht Ihnen zugeordnet. Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
-      "missing": "Geben Sie Ihre GI-Mitgliedernummer ein."
+      "missing": "Geben Sie Ihre persönliche Wahl-ID ein."
     },
     "check_receipt": {
       "info": "Wie speichern nun Ihre Wahlquittung, und speisen diese in die universellen Verifikation ein.",
@@ -45,20 +46,20 @@
       }
     },
     "download_receipt": {
-      "info": "Sie können die Wahlquittung herunterladen, und diese auf einem weiteren Weg in die universelle Verifikation einfliessen lassen (z.B. durch direkte Kontaktaufnahme mit den Teams, die die universelle Verifikation durchführen).",
+      "info": "Sie können die Wahlquittung herunterladen, und diese auf einem weiteren Weg in die universelle Verifikation einfliessen lassen. Senden Sie diese bitte per E-Mail an den Wahlvorstand (wahlbeobachtung@gi.de).",
       "download": "Wahlquittung herunterladen"
     },
     "verify_ballot_content": {
       "question": "Entspricht dies Ihrem Stimmzettel?",
       "successful": "Sie haben angegeben, dass dies Ihrem Stimmzettel entspricht.",
-      "failed": "Sie haben angegeben, dass dies nicht Ihrem Stimmzettel entspricht. Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
+      "failed": "Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
       "finalize": "Verifikation abschließen",
       "report": "Problem melden"
     }
   },
   "layout": {
     "header_jumbotron": {
-      "title": "Webseite zur Stimmüberprüfung",
+      "title": "Webseite zur individuellen Verifikation",
       "description": "Hat der Wahl-Server Ihren Stimmzettel richtig registriert?"
     },
     "receipt_explanation": {
@@ -105,7 +106,7 @@
     "verify_app": {
       "title": "Stimmabgabe überprüfen",
       "description": "Mit dem QR Code, der nach der Wahl angezeigt wird, können Sie den Inhalt Ihres Stimmzettels überprüfen.",
-      "verification_finished": "Stimmabgabe erfolgreich verifiziert. Sie können dieses Fenster nun schliessen.",
+      "verification_finished": "Sie haben die Verifikation abgeschlossen.",
       "collect_receipt": "Hiermit stimme ich zu, dass meine Quittung von dem Verifier gespeichert wird, damit diese später an die GI für die universelle Verifikation der Wahl gesendet wird."
     },
     "receipt_app": {
@@ -117,7 +118,7 @@
       "ballot_view": {
         "decrypted_ballot": "Entschlüsselter Stimmzettel",
         "invalid_choice": "Ungültig wählen",
-        "change_your_vote": "Hier wird der entschlüsselte Stimmzettel dargestellt. Die Checkboxen können hier frei geändert werden, ohne den gespeicherten Stimmzettel zu verändern.",
+        "change_your_vote": "Die Überprüfung Ihrer Einmal-Pin war erfolgreich. Bitte überprüfen Sie nun, ob das unten dargestellte Abbild Ihres Stimmzettels Ihre getroffene Wahl enthält. Bitte beachten Sie, dass es sich nachfolgend um ein Abbild Ihres Stimmzettels in der Wahlurne handelt. Eine Änderung Ihrer Stimmabgabe ist nun nicht mehr möglich.",
         "change_vote_for_screenshot": "Weil die Checkboxen geändert werden können, zeugt ein Screenshot dieser Ansicht nicht von der tatsächlichen Stimmabgabe."
       }
     },

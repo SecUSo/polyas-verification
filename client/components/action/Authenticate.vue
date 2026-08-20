@@ -80,6 +80,6 @@ const { t } = useTranslator()
         {{ t('action.set_password.missing') }}
     </p>
     <button class="btn btn-primary mt-3 w-100" @click="confirm()">
-        {{ t('shared.verify') }}
+        {{ t('action.set_password.verify') }}
     </button>
 </template>
