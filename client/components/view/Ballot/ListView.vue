@@ -20,7 +20,7 @@ defineEmits(['selected'])
 </script>
 
 <template>
-  <div class="table-container shadow-sm rounded-3 overflow-hidden">
+  <div class="table-container shadow-sm rounded-diagonal overflow-hidden">
     <div class="bg-primary text-white px-3 py-2">
       <h4 class="fs-5">{{ list.title.default }}</h4>
     </div>
