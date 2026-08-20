@@ -10,11 +10,16 @@ defineEmits(['selected'])
 </script>
 
 <template>
-  <div class="form-check">
-    <input @click="$emit('selected')" class="form-check-input" type="checkbox" :checked="votes > 0"
-      :id="candidate.id" />
-    <label class="form-check-label" :for="candidate.id">
-      {{candidate.columns.map((column) => column.value.default).join(', ')}}
-    </label>
-  </div>
+  <tr>
+    <td class="text-center align-middle" style="width: 2.5rem">
+
+      <input @click="$emit('selected')" class="form-check-input" type="checkbox" :checked="votes > 0"
+        :id="candidate.id" />
+    </td>
+    <td><label class="form-check-label" :for="candidate.id">
+        {{candidate.columns.map((column) => column.value.default).join(', ')}}
+      </label></td>
+
+
+  </tr>
 </template>
