@@ -23,7 +23,7 @@
     "set_password": {
       "set_password": "Einmal-PIN",
       "one_time_password": "Bitte geben Sie die zeitbasierte Einmal-PIN ein, welche Ihnen aktuell auf der letzten Seite des Online-Wahlsystems angezeigt wird.",
-      "missing": "Bitte geben Sie das Einmalpasswort richtig ein.",
+      "missing": "Bitte geben Sie die Einmal-PIN richtig ein.",
       "verify": "Einmal-PIN überprüfen"
     },
     "verify_ballot_owner": {

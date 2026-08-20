@@ -34,7 +34,7 @@ const downloaded = function () {
   <div>
     <p class="text-body-emphasis mb-2">{{ t('action.download_receipt.info') }}</p>
 
-    <a class="btn btn-primary" :href="receiptHref" download @click="downloaded()">
+    <a class="btn btn-primary w-100" :href="receiptHref" download @click="downloaded()">
       {{ t('action.download_receipt.download') }}
     </a>
   </div>

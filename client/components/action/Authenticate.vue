@@ -67,7 +67,7 @@ const { t } = useTranslator()
     <p v-else-if="enteredOwnerId && (enteredOwnerId !== expectedOwnerId)" class="alert alert-danger mb-0  mt-1">
         {{ t('action.verify_ballot_owner.failed') }}
     </p>
-    <div class="d-flex flex-column mt-5">
+    <div class="d-flex flex-column mt-3">
         <div>
             {{ t('action.set_password.one_time_password') }}
         </div>
