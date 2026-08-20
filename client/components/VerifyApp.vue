@@ -4,12 +4,9 @@ import type { Status } from '@/components/domain/Status'
 import { useRoute, useRouter } from 'vue-router'
 import { api } from '@/services/api'
 import { VerificationErrors } from '@/components/domain/VerificationErrors'
-import VerificationExplanation from '@/components/layout/VerificationExplanation.vue'
 import BallotsView from './view/BallotsView.vue'
 import ResetButton from '@/components/shared/ResetButton.vue'
-import { VerificationSteps } from '@/components/domain/VerificationSteps'
 import VerifyBallotContent from '@/components/action/VerifyBallotContent.vue'
-import CheckReceipt from '@/components/action/CheckReceipt.vue'
 import { useTranslator } from '@/locales/translator'
 import DownloadReceipt from '@/components/action/DownloadReceipt.vue'
 import Authenticate from './action/Authenticate.vue'
@@ -128,7 +125,10 @@ const { t } = useTranslator()
   </div>
 
   <div class="row g-2">
-
+    <div v-if="!urlPayload">
+      <p class="mb-3">{{ t('view.home_app.no_params') }}</p>
+      <p class="mb-3"><a href="https://gi.de/wahlen">{{ t('view.home_app.to_election') }} </a></p>
+    </div>
     <div v-if="urlPayload && !verificationResult?.result">
       <Authenticate @entered="handleEntered" :expectedOwnerId="urlPayload.vid" :enteredOwnerId="ballotOwner" />
     </div>

@@ -101,7 +101,9 @@
   },
   "view": {
     "home_app": {
-      "verifications": "Verifizierungen"
+      "verifications": "Verifizierungen",
+      "no_params": "Bitte rufen Sie diese Website nur durch das Scannen des QR-Codes auf, der Ihnen nach der Stimmabgabe im Online-Wahlsystem angezeigt wird.",
+      "to_election": "Zur Online-Wahl"
     },
     "verify_app": {
       "title": "Stimmabgabe überprüfen",

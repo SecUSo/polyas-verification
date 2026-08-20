@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import OptionView from '@/components/view/OptionView.vue'
 import { useTranslator } from '@/locales/translator'
 
 const { t } = useTranslator()
 </script>
 
 <template>
-  <h3 class="mb-3">{{ t('view.home_app.verifications') }}</h3>
-  <OptionView class="mb-2" prefix="verify_app" to="/verify" />
-  <OptionView prefix="receipt_app" to="/receipt" />
+  <p class="mb-3">{{ t('view.home_app.no_params') }}</p>
+  <p class="mb-3"><a href="https://gi.de/wahlen">{{ t('view.home_app.to_election') }} </a></p>
 </template>
