@@ -16,9 +16,7 @@ const translator = createTranslator('de', 'de', { de })
 setGlobalTranslator(translator)
 
 const routes = [
-  { path: '/', component: HomeApp },
-  { path: '/verify', component: VerifyApp },
-  { path: '/receipt', component: ReceiptApp }
+  { path: '/', component: VerifyApp },
 ]
 const router = createRouter({ history: createWebHistory(), routes })
 app.use(router)
