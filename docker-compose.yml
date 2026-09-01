@@ -9,6 +9,7 @@ services:
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
+      - API_KEY=change_me
     volumes: 
       - persistant:/app/var/www/html/var/persistent
     restart: unless-stopped
