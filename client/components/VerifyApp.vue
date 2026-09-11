@@ -11,6 +11,7 @@ import { useTranslator } from '@/locales/translator'
 import DownloadReceipt from '@/components/action/DownloadReceipt.vue'
 import Authenticate from './action/Authenticate.vue'
 import TakeSurvey from './action/TakeSurvey.vue'
+import LoginView from './view/LoginView.vue'
 
 const route = useRoute()
 const decodeUrlBase64 = (value: string) => {
@@ -99,6 +100,7 @@ const { t } = useTranslator()
 </script>
 
 <template>
+
   <div class="mb-4">
     <!--<h3 class="mb-2">{{ t('view.verify_app.title') }}</h3>
     <p>{{ t('view.verify_app.description') }}</p>-->
@@ -110,6 +112,7 @@ const { t } = useTranslator()
       <p class="mb-3"><a href="https://gi.de/wahlen">{{ t('view.home_app.to_election') }} </a></p>
     </div>
     <div v-if="urlPayload && !verificationResult?.result">
+      <LoginView />
       <Authenticate @entered="handleEntered" :expectedOwnerId="urlPayload.vid" :enteredOwnerId="ballotOwner" />
     </div>
 

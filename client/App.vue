@@ -1,44 +1,37 @@
 <script setup lang="ts">
-import { api } from './services/api.js'
-import HeaderJumbotron from '@/components/layout/HeaderJumbotron.vue'
-import { ref } from 'vue'
-import ElectionView from '@/components/view/ElectionView.vue'
-import type { Election } from '@/components/domain/Election'
-
-import type { ElectionDetails } from '@/components/domain/POLYAS'
-import { displayError } from '@/services/notifiers'
-import { useTranslator } from '@/locales/translator'
-
-const { t } = useTranslator()
-
-const election = ref<Election>()
-const electionDetails = ref<ElectionDetails>()
-
-api.getElection().then((result) => (election.value = result))
-api.getElectionDetails().then((result) => {
-  if (!result) {
-    const errorMessage = t('service.api.election_server_offline')
-    displayError(errorMessage)
-    return
-  }
-
-  electionDetails.value = result
-})
+import Header from './components/layout/FixedHeader.vue'
+import Footer from './components/layout/Footer.vue';
 </script>
 
 <template>
-  <div class="container mw-100em">
-    <div class="my-5">
-      <HeaderJumbotron />
-      <ElectionView class="my-5" v-if="election && electionDetails" :election="election" :election-details="electionDetails" />
-
-      <router-view></router-view>
-    </div>
+  <div class="d-flex flex-column min-vh-100">
+    <Header />
+    <main class="flex-shrink-0">
+      <div class="container mw-100em">
+        <div class="my-5">
+          <router-view></router-view>
+        </div>
+      </div>
+    </main>
+    <footer class="footer mt-auto p-3">
+      <Footer />
+    </footer>
   </div>
 </template>
 
 <style scoped>
 .mw-100em {
   max-width: 35em;
+}
+</style>
+<style>
+body {
+  /* add padding for fixed header */
+  padding-top: 60px;
+
+}
+
+footer {
+  background-color: #404040;
 }
 </style>
