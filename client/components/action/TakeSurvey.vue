@@ -13,7 +13,9 @@ const { t } = useTranslator()
 <template>
     <div>
         <p class="text-body-emphasis mb-2">{{ t('action.take_survey.explanation') }}</p>
-        <a href="">{{ t('action.take_survey.to_survey') }}</a>
+        <p class="btn btn-primary w-100" :href="receiptHref" download @click="downloaded()">
+            {{ t('action.take_survey.to_survey') }}
+        </p>
 
     </div>
 </template>
