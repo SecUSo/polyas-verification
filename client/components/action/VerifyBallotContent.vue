@@ -33,10 +33,6 @@ const verifyAndCollectReceipt = function (result: boolean) {
 
 }
 
-const verify = function (result: boolean) {
-  emit('verified', result)
-}
-
 const { t } = useTranslator()
 </script>
 
@@ -44,9 +40,6 @@ const { t } = useTranslator()
   <template v-if="decision === undefined">
     <button class="btn btn-primary mb-2 w-100" @click="verifyAndCollectReceipt(true)">
       {{ t('action.verify_ballot_content.finalize') }}
-    </button>
-    <button class="btn btn-danger mb-2 w-100" @click="verify(false)">
-      {{ t('action.verify_ballot_content.report') }}
     </button>
   </template>
   <p v-else-if="decision" class="alert alert-success mb-0">
