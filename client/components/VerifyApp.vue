@@ -30,27 +30,6 @@ const urlPayload = computed(() => {
   return { c, d, vid, nonce }
 })
 
-const router = useRouter()
-const backVerify = computed(() => {
-  router.currentRoute.value // need this for reactivity
-  return router.options.history.state.back && router.options.history.state.back.toString().startsWith('/verify')
-})
-
-const reset = () => {
-  password.value = undefined
-  verificationResult.value = undefined
-  ballotOwner.value = undefined
-  ballotContentVerifiedResult.value = undefined
-  receiptChecked.value = undefined
-  if (backVerify.value) {
-    router.back()
-  }
-}
-
-const canReset = computed(() => {
-  return password.value || backVerify.value
-})
-
 const password = ref<string>()
 
 watch(password, () => {
@@ -156,8 +135,5 @@ const { t } = useTranslator()
   <div v-if="ballotContentVerifiedResult && verificationResult?.receipt">
     <DownloadReceipt :receipt="verificationResult.receipt" @downloaded="receiptDownloaded = $event" class="mb-3" />
     <TakeSurvey class="mb-5" />
-  </div>
-  <div class="p-0 mt-3" v-if="canReset">
-    <ResetButton @reset="reset" />
   </div>
 </template>
