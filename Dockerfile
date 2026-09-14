@@ -51,12 +51,15 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
     opcache
 
 
-# 4. Setup app
+# 3. Setup app
 WORKDIR /var/www/html
 
 # Copy backend code
 COPY --from=composer-builder /app/vendor ./vendor
-COPY . ./
+COPY src ./src
+COPY var/config/ ./var/config
+COPY public ./public
+COPY .env ./
 
 # Copy built frontend assets
 COPY --from=frontend-builder /app/client/dist ./public/
@@ -67,10 +70,8 @@ RUN chown -R www-data:www-data /var/www/html
 # Install Nginx
 RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
-# Nginx configuration TODO
+# Nginx configuration -> example config, update this for deployment.
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# TODO check if there arre better ways
 RUN rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 80
