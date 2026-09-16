@@ -10,7 +10,7 @@ const emit = defineEmits<{
     (e: 'entered', result: { id: string, otp: string }): void
 }>()
 
-const showIDError = ref<boolean>(false)
+const ownerError = ref<string>(null)
 const showPasswordError = ref<boolean>(false)
 
 const ownerInput = ref<HTMLElement>()
@@ -23,21 +23,29 @@ const sanitizedPassword = computed(() => password.value?.replace(/[^0-9.]/g, '')
 const invalidCharacters = computed(() => password.value && sanitizedPassword.value?.length !== password.value.length)
 
 const confirm = function () {
+    ownerError.value = null
+    showPasswordError.value = false
     if (!owner.value) {
-        showIDError.value = true
+        ownerError.value = "missing"
+        return
+    } else if (owner.value != props.expectedOwnerId) {
+        ownerError.value = "failed"
         return
     } else if (!sanitizedPassword.value) {
-        showIDError.value = false
         showPasswordError.value = true
         return
-    } else {
-        showPasswordError.value = false
-        showIDError.value = false
     }
-    emit('entered', {
-        id: String(owner.value), otp: sanitizedPassword.value
-    })
+    else {
+        emit('entered', {
+            id: String(owner.value), otp: sanitizedPassword.value
+        })
+    }
+
 }
+
+watch(owner, () => {
+    ownerError.value = null
+})
 onMounted(() => {
     ownerInput.value?.focus()
 })
@@ -61,11 +69,8 @@ const { t } = useTranslator()
 
     </div>
 
-    <p v-if="showIDError" class="alert alert-danger mb-0 mt-1">
-        {{ t('action.verify_ballot_owner.missing') }}
-    </p>
-    <p v-else-if="enteredOwnerId && (enteredOwnerId !== expectedOwnerId)" class="alert alert-danger mb-0  mt-1">
-        {{ t('action.verify_ballot_owner.failed') }}
+    <p v-if="ownerError" class="alert alert-danger mb-0 mt-1">
+        {{ t(`action.verify_ballot_owner.${ownerError}`) }}
     </p>
     <div class="d-flex flex-column mt-3">
         <div>

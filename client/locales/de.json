@@ -22,15 +22,15 @@
     },
     "set_password": {
       "set_password": "Einmal-Code",
-      "one_time_password": "Bitte geben Sie die zeitbasierte Einmal-Code ein, welche Ihnen aktuell auf der letzten Seite des Online-Wahlsystems angezeigt wird.",
-      "missing": "Bitte geben Sie die Einmal-Code richtig ein.",
+      "one_time_password": "Bitte geben Sie den zeitbasierte Einmal-Code ein, welche Ihnen aktuell auf der letzten Seite des Online-Wahlsystems angezeigt wird.",
+      "missing": "Bitte geben Sie den Einmal-Code richtig ein.",
       "verify": "Einmal-Code überprüfen"
     },
     "verify_ballot_owner": {
       "set_ballot_owner": "Wahl-ID",
       "ballot_owner_source": "Geben Sie Ihre persönliche Wahl-ID für diese Wahl ein. Dies ist die GI-Mitgliedernummer, ohne Präfix oder führende Nullen.",
       "successful": "Sie überprüfen den Stimmzettel, der Ihnen zugeordnet ist.",
-      "failed": "Der Stimmzettel ist nicht Ihnen zugeordnet. Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
+      "failed": "Der Stimmzettel ist nicht der eingegeben Wahl-ID zugeordnet. Bitte überprüfen Sie, ob Sie die Wahl-ID korrekt eingegeben haben und versuchen Sie es erneut. Wenn der Fehler dauerhaft besteht, wenden Sie sich bitte an die Wahlorganisatoren (onlinewahlen@gi.de).",
       "missing": "Geben Sie Ihre persönliche Wahl-ID ein."
     },
     "check_receipt": {
@@ -174,7 +174,7 @@
         "description": "Logged sich mit dem bereitgestellen Zugangscode ein, und fordert vom Server kryptographisches Material für die weitere Verifikation an.",
         "success": "Der Login ist erfolgt, und kryptographisches Material wurde erhalten.",
         "failed": "Login fehlgeschlagen.",
-        "impact": "Das Verifizierungstool kann die Verifizierung nicht durchführen."
+        "impact": "Der eingegebene Einmal-code ist nicht korrekt. Bitte versuchen Sie es noch einmal. Achten Sie darauf, dass der Timer für die Generierung eines neuen Einmal-Codes noch nicht abgelaufen ist. Wenn der Fehler dauerhaft besteht, wenden Sie sich bitte an die Wahlorganisatoren (onlinewahlen@gi.de)."
       },
       "DEVICE_PARAMETERS_MATCH": {
         "title": "Konfigurierte Parameter stimmen überein",

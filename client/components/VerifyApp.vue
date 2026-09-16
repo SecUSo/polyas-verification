@@ -12,6 +12,7 @@ import DownloadReceipt from '@/components/action/DownloadReceipt.vue'
 import Authenticate from './action/Authenticate.vue'
 import TakeSurvey from './action/TakeSurvey.vue'
 import LoginView from './view/LoginView.vue'
+import ErrorView from './view/library/ErrorView.vue'
 
 const route = useRoute()
 const decodeUrlBase64 = (value: string) => {
@@ -117,7 +118,8 @@ const { t } = useTranslator()
     </div>
 
     <div v-if="verificationFailed" class="alert alert-danger mb-3">
-      {{ t('layout.verification_explanation.verification_fails.try_again_or_complain') }}
+      <ErrorView prefix="domain.verification_status" :result="verificationResult" :error-order="errorOrder"
+        :fallback-error="VerificationErrors.UNKNOWN" />
     </div>
     <div v-if="!!verificationResult?.result && !ballotContentVerifiedResult">
       <p class="text-body-emphasis mb-2">{{ t('action.verify_ballot_content.question') }}</p>
