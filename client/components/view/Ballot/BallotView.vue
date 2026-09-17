@@ -4,15 +4,15 @@ import type { Ballot } from '@/components/domain/POLYAS'
 import ListView from '@/components/view/Ballot/ListView.vue'
 import BallotContentView from '@/components/view/Ballot/BallotContentView.vue'
 import { useTranslator } from '@/locales/translator'
-import CheckboxModal from '@/components/layout/CheckboxModal.vue';
 import { ref } from 'vue'
-const modal = ref(null)
 
 const props = defineProps<{
   choice: string
   ballot: Ballot
 }>()
-
+const emit = defineEmits<{
+  (e: 'selected', result: { id: string, otp: string }): void
+}>()
 const invalidChoice = computed(() => props.choice.startsWith('01'))
 const choicePerList = computed(() => {
   const lookup: { [index: string]: string | undefined } = {}
@@ -26,15 +26,11 @@ const choicePerList = computed(() => {
   return lookup
 })
 
-const modalShown = ref<boolean>(false)
-
-function showModal() {
-  if (!modalShown.value) {
-    modal.value.show()
-    modalShown.value = true
-  }
-
+function handleSelected() {
+  emit('selected', {
+  })
 }
+
 const { t } = useTranslator()
 </script>
 
@@ -51,7 +47,7 @@ const { t } = useTranslator()
         </p>
         <div class="d-flex flex-column row-gap-3">
           <ListView v-for="list in ballot.lists" :key="list.id" :list="list" :choice="choicePerList[list.id]!"
-            @selected="showModal" />
+            @selected="handleSelected" />
         </div>
         <p v-if="ballot.contentBelow?.value['default']">
           <BallotContentView :content="ballot.contentBelow.value['default']" />
@@ -65,5 +61,4 @@ const { t } = useTranslator()
       </div>
     </div>
   </div>
-  <CheckboxModal ref="modal" />
 </template>
