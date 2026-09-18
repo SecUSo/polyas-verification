@@ -11,7 +11,7 @@ services:
       - APP_DEBUG=false
       - API_KEY=change_me
     volumes: 
-      - persistant:/app/var/www/html/var/persistent
+      - persistant:/var/www/html/var/persistent
     restart: unless-stopped
 
 volumes:

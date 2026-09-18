@@ -63,6 +63,8 @@ COPY .env ./
 
 # Copy built frontend assets
 COPY --from=frontend-builder /app/client/dist ./public/
+COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
@@ -75,4 +77,5 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN rm -f /etc/nginx/sites-enabled/default
 
 EXPOSE 80
+ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["sh", "-c", "php-fpm & nginx -g 'daemon off;'"]
