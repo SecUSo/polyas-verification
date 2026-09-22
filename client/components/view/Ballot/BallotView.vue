@@ -43,7 +43,9 @@ const { t } = useTranslator()
           {{ ballot.title['default'] }}
         </h4>
         <p v-if="ballot.contentAbove?.value['default']">
+          <!-- hide rules for voting
           <BallotContentView :content="ballot.contentAbove.value['default']" />
+          -->
         </p>
         <div class="d-flex flex-column row-gap-3">
           <ListView v-for="list in ballot.lists" :key="list.id" :list="list" :choice="choicePerList[list.id]!"

@@ -50,7 +50,7 @@
       "download": "Wahl-Quittung herunterladen"
     },
     "verify_ballot_content": {
-      "question": "Entspricht dies Ihrem Stimmzettel?",
+      "question": "Bitte überprüfen Sie den Stimmzettel.",
       "successful": "Sie haben angegeben, dass dies Ihrem Stimmzettel entspricht.",
       "failed": "Bitte nehmen Sie umgehend Kontakt mit den Wahlorganisatoren (wahlbeobachtung@gi.de) auf.",
       "finalize": "Verifikation abschließen",
